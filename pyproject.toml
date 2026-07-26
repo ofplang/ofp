@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=77", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ofplang"
+description = "Umbrella `ofp` command-line interface for the Object-flow Programming Language toolchain."
+requires-python = ">=3.10"
+dynamic = ["version"]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Kazunari Kaizu", email = "kwaizu@gmail.com" }]
+keywords = ["ofplang", "dataflow", "workflow", "cli"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Compilers",
+    "Typing :: Typed",
+]
+# This distribution is a thin dispatcher: it bundles the toolchain by depending
+# on the sibling packages and forwards each subcommand to their CLIs in-process.
+# Siblings are resolved from PyPI; the lower bound matches the sibling-to-sibling
+# convention (`>=0.1.0`).
+dependencies = [
+    "ofplang-validate>=0.1.0",
+    "ofplang-schedule>=0.1.0",
+    "ofplang-run>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ofplang/ofp"
+Repository = "https://github.com/ofplang/ofp"
+
+[project.optional-dependencies]
+test = ["pytest>=7.0"]
+dev = ["pytest>=7.0", "ruff>=0.16", "mypy>=1.11"]
+
+[project.scripts]
+# The umbrella command. Subcommands (`ofp validate|schedule|run`) forward to the
+# sibling packages' own CLIs; those also ship standalone `ofp-*` commands.
+ofp = "ofplang.ofp.cli:main"
+
+# Version is derived from git tags (e.g. `v0.1.0`) by setuptools-scm; there is no
+# static version in this file.
+[tool.setuptools_scm]
+
+# `ofplang` is a PEP 420 namespace shared across the org's repos (validate,
+# schedule, run, …); this distribution provides only the `ofplang.ofp` package
+# (the dispatcher) under it.
+[tool.setuptools.packages.find]
+include = ["ofplang*"]
+namespaces = true
+
+# Ship the PEP 561 marker so downstreams see this package as typed.
+[tool.setuptools.package-data]
+"ofplang.ofp" = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4", "W"]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["ofplang"]
+# `ofplang` is a PEP 420 namespace package (no __init__.py), so tell mypy how to
+# root it rather than letting it guess module names.
+namespace_packages = true
+explicit_package_bases = true
+mypy_path = "."
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ofplang"
-description = "Umbrella `ofp` command-line interface for the Object-flow Programming Language toolchain."
+description = "The Object-Flow Programming Language"
 requires-python = ">=3.10"
 dynamic = ["version"]
 readme = "README.md"

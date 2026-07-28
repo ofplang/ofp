@@ -26,10 +26,11 @@ classifiers = [
 ]
 # This distribution is a thin dispatcher: it bundles the toolchain by depending
 # on the sibling packages and forwards each subcommand to their CLIs in-process.
-# Siblings are resolved from PyPI; the lower bound matches the sibling-to-sibling
-# convention (`>=0.1.0`).
+# Siblings are resolved from PyPI. Lower bounds follow the sibling-to-sibling
+# convention (`>=0.1.0`), raised to `ofplang-validate>=0.1.2` so the forwarded
+# `ofp validate` front door recognizes optional `description` metadata (spec 2.7).
 dependencies = [
-    "ofplang-validate>=0.1.0",
+    "ofplang-validate>=0.1.2",
     "ofplang-schedule>=0.1.0",
     "ofplang-run>=0.1.0",
 ]

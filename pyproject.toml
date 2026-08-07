@@ -26,13 +26,16 @@ classifiers = [
 ]
 # This distribution is a thin dispatcher: it bundles the toolchain by depending
 # on the sibling packages and forwards each subcommand to their CLIs in-process.
-# Siblings are resolved from PyPI. Lower bounds follow the sibling-to-sibling
-# convention (`>=0.1.0`), raised to `ofplang-validate>=0.1.2` so the forwarded
-# `ofp validate` front door recognizes optional `description` metadata (spec 2.7).
+# Siblings are resolved from PyPI. Because `ofp` exists to install *the toolchain*
+# as one unit, the floors track the current released set rather than the oldest
+# version that would technically import: a resolver free to pick `ofplang-run`
+# 0.1.0 would give `ofp run` a CLI without `--document` / `$import` expansion,
+# which is not the toolchain this package is meant to name. Bump these together
+# with each sibling release.
 dependencies = [
-    "ofplang-validate>=0.1.2",
-    "ofplang-schedule>=0.1.0",
-    "ofplang-run>=0.1.0",
+    "ofplang-validate>=0.1.3",
+    "ofplang-schedule>=0.1.5",
+    "ofplang-run>=0.1.11",
 ]
 
 [project.urls]

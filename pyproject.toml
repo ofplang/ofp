@@ -27,11 +27,17 @@ classifiers = [
 # This distribution is a thin dispatcher: it bundles the toolchain by depending
 # on the sibling packages and forwards each subcommand to their CLIs in-process.
 # Siblings are resolved from PyPI. Because `ofp` exists to install *the toolchain*
-# as one unit, the floors track the current released set rather than the oldest
-# version that would technically import: a resolver free to pick `ofplang-run`
-# 0.1.0 would give `ofp run` a CLI without `--document` / `$import` expansion,
-# which is not the toolchain this package is meant to name. Bump these together
-# with each sibling release.
+# as one unit, each floor names the oldest sibling whose **behaviour** the
+# umbrella still stands behind, not the oldest that would technically import: a
+# resolver free to pick `ofplang-run` 0.1.0 would give `ofp run` a CLI with no
+# `--document` and no `$import` expansion, which is not the toolchain this
+# package is meant to name.
+#
+# So a floor moves when a sibling ships something `ofp` depends on -- not on
+# every sibling release. `ofplang-validate` stays at 0.1.3, the release that
+# added the `$import` expansion API the forwarded front doors use; 0.1.4 only
+# rejects more documents and adds no interface, so requiring it would exclude a
+# working combination for nothing.
 dependencies = [
     "ofplang-validate>=0.1.3",
     "ofplang-schedule>=0.1.5",

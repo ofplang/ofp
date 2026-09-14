@@ -38,6 +38,12 @@ classifiers = [
 # added the `$import` expansion API the forwarded front doors use; 0.1.4 only
 # rejects more documents and adds no interface, so requiring it would exclude a
 # working combination for nothing.
+#
+# `ofplang-schedule>=0.9` and `ofplang-run>=0.8` move together and have to: the runner
+# carries the plan itself from one replan to the next now, and the scheduler is what
+# makes that possible. Paired with an older scheduler every replan of a `--jobs` run is
+# refused, and a refused replan stops every job in it -- so this is a combination the
+# umbrella must not let a resolver assemble.
 dependencies = [
 # Upper bounds are deliberate. A sibling's minor version is where a
 # specification revision lands, and a revision may reject documents an earlier one
@@ -47,8 +53,8 @@ dependencies = [
 # bounds cannot protect what is already on PyPI without one, which is why they go
 # in now rather than at the first breakage.
     "ofplang-validate>=0.2,<0.3",
-    "ofplang-schedule>=0.8,<0.9",
-    "ofplang-run>=0.7,<0.8",
+    "ofplang-schedule>=0.9,<0.10",
+    "ofplang-run>=0.8,<0.9",
 ]
 
 [project.urls]

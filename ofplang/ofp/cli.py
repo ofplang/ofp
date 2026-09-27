@@ -29,6 +29,12 @@ _SUBCOMMANDS: dict[str, str] = {
     "export": "ofplang.export.cli",
 }
 
+# Subcommands whose package is an optional extra rather than a dependency, and
+# the install that brings it in.
+_EXTRAS: dict[str, str] = {
+    "export": 'pip install "ofplang[export]"',
+}
+
 _USAGE = """\
 usage: ofp <command> [options]
 
@@ -89,6 +95,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             f"ofp: the '{head}' command requires a package that is not installed "
             f"({exc}).\n"
         )
+        if head in _EXTRAS:
+            sys.stderr.write(f"ofp: it is optional; install it with: {_EXTRAS[head]}\n")
         return 2
 
     exit_code: int = module.main(args[1:])

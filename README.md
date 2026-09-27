@@ -30,6 +30,7 @@ sibling packages that do the work:
 - [`ofplang-schedule`](https://github.com/ofplang/schedule) — the scheduler
 - [`ofplang-run`](https://github.com/ofplang/run) — the runner / simulator
 - [`ofplang-export`](https://github.com/ofplang/export) — the single-file viewer and other readable exports
+  (**optional**: `pip install "ofplang[export]"` for `ofp export`)
 
 ## Command line
 

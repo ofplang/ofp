@@ -7,6 +7,8 @@ is the lightest sibling (PyYAML only, no ortools/numpy).
 
 from __future__ import annotations
 
+import importlib.util
+
 import pytest
 
 from ofplang.ofp.cli import main
@@ -48,7 +50,13 @@ def test_dispatches_to_subcommand() -> None:
 
 
 def test_dispatches_to_export(capsys: pytest.CaptureFixture[str]) -> None:
-    # `ofp export view` reaches ofplang-export's own CLI: a missing file is its
-    # input error (exit 2), returned unchanged.
-    assert main(["export", "view", "no-such-file.yaml"]) == 2
-    assert "ofp-export: no-such-file.yaml: no such file" in capsys.readouterr().err
+    # ofplang-export is an optional extra. Installed, `ofp export view` reaches
+    # its own CLI (a missing file is its input error, exit 2); not installed,
+    # `ofp` says so and names the extra. Either way the exit code is 2.
+    code = main(["export", "view", "no-such-file.yaml"])
+    err = capsys.readouterr().err
+    assert code == 2
+    if importlib.util.find_spec("ofplang.export") is not None:
+        assert "ofp-export: no-such-file.yaml: no such file" in err
+    else:
+        assert 'pip install "ofplang[export]"' in err

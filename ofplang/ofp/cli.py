@@ -6,6 +6,7 @@ It forwards each subcommand to a sibling package's own CLI, in-process::
     ofp validate ...  ->  ofplang.validate.cli.main
     ofp schedule ...  ->  ofplang.schedule.cli.main
     ofp run ...       ->  ofplang.run.cli.main
+    ofp export ...    ->  ofplang.export.cli.main
 
 Each subcommand keeps its own options, exit codes, and ``--help``; ``ofp`` adds
 no behavior of its own beyond routing plus a top-level ``--help``/``--version``.
@@ -25,6 +26,7 @@ _SUBCOMMANDS: dict[str, str] = {
     "validate": "ofplang.validate.cli",
     "schedule": "ofplang.schedule.cli",
     "run": "ofplang.run.cli",
+    "export": "ofplang.export.cli",
 }
 
 _USAGE = """\
@@ -36,6 +38,7 @@ commands:
   validate    check a workflow document is well-formed portable v0
   schedule    compute a schedule for a workflow
   run         execute a workflow (rolling-horizon runner / simulator)
+  export      write documents out for people to read (a single-file viewer)
 
 Run `ofp <command> --help` for command-specific options.
 

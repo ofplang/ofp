@@ -11,6 +11,7 @@ and exposes it under a single command:
 ofp validate ...   # check a workflow is well-formed portable v0
 ofp schedule ...   # compute a schedule for a workflow
 ofp run ...        # execute a workflow (rolling-horizon runner / simulator)
+ofp export ...     # write documents out for people to read (e.g. `ofp export view plan.yaml -o plan.html`)
 ```
 
 The language is defined in the [ofplang/spec](https://github.com/ofplang/spec)
@@ -28,6 +29,7 @@ sibling packages that do the work:
 - [`ofplang-validate`](https://github.com/ofplang/validate) — the validator
 - [`ofplang-schedule`](https://github.com/ofplang/schedule) — the scheduler
 - [`ofplang-run`](https://github.com/ofplang/run) — the runner / simulator
+- [`ofplang-export`](https://github.com/ofplang/export) — the single-file viewer and other readable exports
 
 ## Command line
 
@@ -42,7 +44,7 @@ so every command keeps its own options, output, and exit codes. `ofp` itself
 adds only routing and a top-level `--help`/`--version`.
 
 Each sibling also installs its own standalone command (`ofp-validate`,
-`ofp-schedule`, `ofp-run`); `ofp <command>` is the convenience aggregator.
+`ofp-schedule`, `ofp-run`, `ofp-export`); `ofp <command>` is the convenience aggregator.
 
 Exit codes: `2` for an unknown/missing command or usage error at the `ofp`
 level; otherwise the subcommand's own exit code is returned unchanged.

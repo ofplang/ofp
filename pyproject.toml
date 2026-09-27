@@ -55,6 +55,9 @@ dependencies = [
     "ofplang-validate>=0.2,<0.3",
     "ofplang-schedule>=0.9,<0.13",
     "ofplang-run>=0.8,<0.13",
+    # Writes documents out for people to read; it reads only what the
+    # specifications define, so it moves with the spec, not with a runner.
+    "ofplang-export>=0.1,<0.2",
 ]
 
 [project.urls]
@@ -66,7 +69,7 @@ test = ["pytest>=7.0"]
 dev = ["pytest>=7.0", "ruff>=0.16", "mypy>=1.11"]
 
 [project.scripts]
-# The umbrella command. Subcommands (`ofp validate|schedule|run`) forward to the
+# The umbrella command. Subcommands (`ofp validate|schedule|run|export`) forward to the
 # sibling packages' own CLIs; those also ship standalone `ofp-*` commands.
 ofp = "ofplang.ofp.cli:main"
 

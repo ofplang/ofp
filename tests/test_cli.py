@@ -21,7 +21,7 @@ def test_help_goes_to_stdout_and_succeeds(capsys: pytest.CaptureFixture[str]) ->
     assert main(["--help"]) == 0
     out = capsys.readouterr().out
     assert "usage: ofp" in out
-    assert "validate" in out and "schedule" in out and "run" in out
+    assert "validate" in out and "schedule" in out and "run" in out and "export" in out
 
 
 def test_version(capsys: pytest.CaptureFixture[str]) -> None:
@@ -45,3 +45,10 @@ def test_dispatches_to_subcommand() -> None:
     # through unchanged. (`validate --help` would instead raise SystemExit from
     # argparse, which is correct at runtime but awkward to assert on here.)
     assert main(["validate", "no-such-file.yaml"]) == 2
+
+
+def test_dispatches_to_export(capsys: pytest.CaptureFixture[str]) -> None:
+    # `ofp export view` reaches ofplang-export's own CLI: a missing file is its
+    # input error (exit 2), returned unchanged.
+    assert main(["export", "view", "no-such-file.yaml"]) == 2
+    assert "ofp-export: no-such-file.yaml: no such file" in capsys.readouterr().err

@@ -44,6 +44,12 @@ classifiers = [
 # makes that possible. Paired with an older scheduler every replan of a `--jobs` run is
 # refused, and a refused replan stops every job in it -- so this is a combination the
 # umbrella must not let a resolver assemble.
+#
+# All three now move to the releases that plan and run `map` / `fold` (schedule 0.13
+# expands them, run 0.13 executes the expansion, and both validate against
+# specification revision 0.4, validate 0.3). Those are what `ofp` stands behind from this
+# release, and the three only work as a set: run 0.13 needs schedule 0.13, which needs
+# validate 0.3.
 dependencies = [
 # Upper bounds are deliberate. A sibling's minor version is where a
 # specification revision lands, and a revision may reject documents an earlier one
@@ -52,9 +58,9 @@ dependencies = [
 # would pick up the next such sibling and start refusing its own examples. The
 # bounds cannot protect what is already on PyPI without one, which is why they go
 # in now rather than at the first breakage.
-    "ofplang-validate>=0.2,<0.3",
-    "ofplang-schedule>=0.9,<0.13",
-    "ofplang-run>=0.8,<0.13",
+    "ofplang-validate>=0.3,<0.4",
+    "ofplang-schedule>=0.13,<0.14",
+    "ofplang-run>=0.13,<0.14",
 ]
 
 [project.urls]

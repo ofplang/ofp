@@ -57,6 +57,12 @@ classifiers = [
 # behind `ofp schedule` / `ofp run` have to agree on what is valid, and under validate
 # 0.3 they do not -- an unreturned output passes validation that the scheduler's reader
 # now refuses.
+#
+# And again, to validate 0.4.1, schedule 0.14.1 and run 0.14.1: a `map` / `fold` over a
+# list of values is planned and run (the run states each list's length as the
+# document's `expansion`), and the front door and the reader agree once more on a
+# structured node's `outputs` -- an entry with no mode, and a reference to an output the
+# node does not expose, are refused by both, where validate 0.4.0 passed them.
 dependencies = [
 # Upper bounds are deliberate. A sibling's minor version is where a
 # specification revision lands, and a revision may reject documents an earlier one
@@ -65,9 +71,9 @@ dependencies = [
 # would pick up the next such sibling and start refusing its own examples. The
 # bounds cannot protect what is already on PyPI without one, which is why they go
 # in now rather than at the first breakage.
-    "ofplang-validate>=0.4,<0.5",
-    "ofplang-schedule>=0.13.1,<0.14",
-    "ofplang-run>=0.13.1,<0.14",
+    "ofplang-validate>=0.4.1,<0.5",
+    "ofplang-schedule>=0.14.1,<0.15",
+    "ofplang-run>=0.14.1,<0.15",
 ]
 
 [project.urls]

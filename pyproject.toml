@@ -63,6 +63,10 @@ classifiers = [
 # document's `expansion`), and the front door and the reader agree once more on a
 # structured node's `outputs` -- an entry with no mode, and a reference to an output the
 # node does not expose, are refused by both, where validate 0.4.0 passed them.
+#
+# And schedule and run again, to 0.15: a `branch` whose arm the boundary decides is
+# planned and run (the run states each arm as the document's `expansion.arms`), and
+# run 0.15 needs schedule 0.15.
 dependencies = [
 # Upper bounds are deliberate. A sibling's minor version is where a
 # specification revision lands, and a revision may reject documents an earlier one
@@ -72,8 +76,8 @@ dependencies = [
 # bounds cannot protect what is already on PyPI without one, which is why they go
 # in now rather than at the first breakage.
     "ofplang-validate>=0.4.1,<0.5",
-    "ofplang-schedule>=0.14.1,<0.15",
-    "ofplang-run>=0.14.1,<0.15",
+    "ofplang-schedule>=0.15,<0.16",
+    "ofplang-run>=0.15,<0.16",
 ]
 
 [project.urls]

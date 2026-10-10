@@ -67,6 +67,10 @@ classifiers = [
 # And schedule and run again, to 0.15: a `branch` whose arm the boundary decides is
 # planned and run (the run states each arm as the document's `expansion.arms`), and
 # run 0.15 needs schedule 0.15.
+#
+# And to 0.16: a `branch` whose condition is produced during the run is planned on an
+# assumed arm, held back until the condition exists, and decided by the run as the
+# value is recorded; run 0.16 needs schedule 0.16.
 dependencies = [
 # Upper bounds are deliberate. A sibling's minor version is where a
 # specification revision lands, and a revision may reject documents an earlier one
@@ -76,8 +80,8 @@ dependencies = [
 # bounds cannot protect what is already on PyPI without one, which is why they go
 # in now rather than at the first breakage.
     "ofplang-validate>=0.4.1,<0.5",
-    "ofplang-schedule>=0.15,<0.16",
-    "ofplang-run>=0.15,<0.16",
+    "ofplang-schedule>=0.16,<0.17",
+    "ofplang-run>=0.16,<0.17",
 ]
 
 [project.urls]

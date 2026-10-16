@@ -106,7 +106,11 @@ Repository = "https://github.com/ofplang/ofp"
 [project.optional-dependencies]
 # `ofp export` is optional: writing documents out for people to read is not
 # needed to validate, schedule or run them. `pip install "ofplang[export]"`.
-export = ["ofplang-export>=0.1,<0.2"]
+# 0.1.10 is the floor: from 0.1.8 the viewer draws the structured nodes and the
+# decisions, gates and reservations the siblings above plan, from 0.1.9 a plan of
+# several jobs (an earlier one refuses it), and 0.1.10 keeps those marks in an
+# exported SVG.
+export = ["ofplang-export>=0.1.10,<0.2"]
 test = ["pytest>=7.0"]
 dev = ["pytest>=7.0", "ruff>=0.16", "mypy>=1.11"]
 
